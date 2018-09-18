@@ -89,6 +89,67 @@ chunkFilename参数与filename参数类似，都是用来定义生成文件的�
 ## **添加额外功能：plugins参数**
 
 {% hint style="info" %}
-**结合实例说明**CommonsChunkPlugin、HtmlWebpackPlugin、ZipFilesPlugin
+**结合实例说明**
+
+CommonsChunkPlugin、ExtractTextPlugin、HtmlWebpackPlugin、ZipFilesPlugin
 {% endhint %}
+
+### CommonsChunkPlugin
+
+* `name`，给这个包含公共代码的chunk命个名（唯一标识）。
+* `filename`，如何命名打包后生产的js文件，也是可以用上`[name]`、`[hash]`、`[chunkhash]`这些变量的啦（具体是什么意思，请看我上一篇文章中关于filename的那一节）。
+* `minChunks`，公共代码的判断标准：某个js模块被多少个chunk加载了才算是公共代码。
+* `chunks`，表示需要在哪些chunk（也可以理解为webpack配置中entry的每一项）里寻找公共代码进行打包。不设置此参数则默认提取范围为所有的chunk。
+
+### ExtractTextPlugin
+
+```text
+plugins: [
+    new ExtractTextPlugin('style.[contenthash].css')
+]
+```
+
+```text
+plugins: [
+    new ExtractTextPlugin('home/[name].[contenthash].css'),
+    new ExtractTextPlugin('about/[name].[contenthash].css')
+]
+```
+
+### HtmlWebpackPlugin
+
+```text
+new HtmlWebpackPlugin({
+  filename: config.build.index,
+  template: 'index.html',
+  inject: true,
+  minify: {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeAttributeQuotes: true
+  },
+  chunksSortMode: 'dependency'
+})
+```
+
+```text
+new HtmlWebpackPlugin({
+   filename: 'home/home.html',
+   template: 'src/home/html/index.html',
+   inject: true,
+   minify: {
+       removeComments: true,
+       collapseWhitespace: true
+   }
+ })
+ new HtmlWebpackPlugin({
+   filename: 'about/about.html',
+   template: 'src/about/html/index.html',
+   inject: true,
+   minify: {
+       removeComments: true,
+       collapseWhitespace: true
+   }
+ })
+```
 
