@@ -32,17 +32,14 @@
 
 ## 配置
 
-> 注意整个配置中我们使用 Node 内置的 [path 模块](https://nodejs.org/api/path.html)，并在它前面加上 [\_\_dirname](https://nodejs.org/docs/latest/api/globals.html#globals_dirname)这个全局变量。可以防止不同操作系统之间的文件路径问题，并且可以使相对路径按照预期工作。
-
-### 选项
-
 **webpack.config.js**
 
 ```javascript
 const path = require('path');
 
 module.exports = {
-  entry: "./app/entry", // string | object | array  entry: ["./app/entry1", "./app/entry2"],
+  entry: "./app/entry", // string | object | array  
+  entry: ["./app/entry1", "./app/entry2"],
   entry: {
     a: "./app/entry-a",
     b: ["./app/entry-b1", "./app/entry-b2"]
@@ -57,11 +54,13 @@ module.exports = {
     // 所有输出文件的目标路径
     // 必须是绝对路径（使用 Node.js 的 path 模块）
 
-    filename: "bundle.js", // string    filename: "[name].js", // 用于多个入口点(entry point)（出口点？）
+    filename: "bundle.js", // string    
+    filename: "[name].js", // 用于多个入口点(entry point)（出口点？）
     filename: "[chunkhash].js", // 用于长效缓存
     // 「入口分块(entry chunk)」的文件名模板（出口分块？）
 
-    publicPath: "/assets/", // string    publicPath: "",
+    publicPath: "/assets/", // string    
+    publicPath: "",
     publicPath: "https://cdn.example.com/",
     // 输出解析文件的目录，url 相对于 HTML 页面
 
@@ -142,15 +141,20 @@ module.exports = {
       // 模块别名相对于当前上下文导入
     },
 
-  devtool: "source-map", // enum  // 通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
+  devtool: "source-map", 
+  // enum  
+  // 通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
   // 牺牲了构建速度的 `source-map' 是最详细的。
 
   devServer: {
-    proxy: { // proxy URLs to backend development server
+    proxy: { 
+    // proxy URLs to backend development server
       '/api': 'http://localhost:3000'
     },
-    compress: true, // enable gzip compression
-    hot: true // hot module replacement. Depends on HotModuleReplacementPlugin
+    compress: true, 
+    // enable gzip compression
+    hot: true 
+    // hot module replacement. Depends on HotModuleReplacementPlugin
   },
 
   plugins: [
