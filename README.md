@@ -30,18 +30,6 @@
 * SEO的需要
 * ...
 
-[![webpack logo](https://www.webpackjs.com/cd0bb358c45b584743d8ce4991777c42.svg)](https://www.webpackjs.com/)[中文文档](https://www.webpackjs.com/concepts/)[参与贡献](https://www.webpackjs.com/contribute/)[投票](https://www.webpackjs.com/vote/)[博客](https://medium.com/webpack/)
-
-```text
-
-```
-
-[概念](https://www.webpackjs.com/concepts/)[配置](https://www.webpackjs.com/configuration/)[API](https://www.webpackjs.com/api/)[指南](https://www.webpackjs.com/guides/)[LOADERS](https://www.webpackjs.com/loaders/)[插件](https://www.webpackjs.com/plugins/)[![](https://img.shields.io/npm/v/webpack.svg?label=webpack&style=flat-square&maxAge=3600)](https://github.com/webpack/webpack/releases)[配置](https://www.webpackjs.com/configuration/)
-
-* [选项](https://www.webpackjs.com/configuration/#%E9%80%89%E9%A1%B9)
-
-[使用不同语言进行配置\(configuration languages\)](https://www.webpackjs.com/configuration/configuration-languages/)[多种配置类型\(configuration types\)](https://www.webpackjs.com/configuration/configuration-types/)[入口和上下文\(entry and context\)](https://www.webpackjs.com/configuration/entry-context/)[输出\(output\)](https://www.webpackjs.com/configuration/output/)[模块\(module\)](https://www.webpackjs.com/configuration/module/)[解析\(resolve\)](https://www.webpackjs.com/configuration/resolve/)[插件\(plugins\)](https://www.webpackjs.com/configuration/plugins/)[开发中 Server\(devServer\)](https://www.webpackjs.com/configuration/dev-server/)[devtool](https://www.webpackjs.com/configuration/devtool/)[构建目标\(targets\)](https://www.webpackjs.com/configuration/target/)[watch 和 watchOptions](https://www.webpackjs.com/configuration/watch/)[外部扩展\(externals\)](https://www.webpackjs.com/configuration/externals/)[性能\(performance\)](https://www.webpackjs.com/configuration/performance/)[Node](https://www.webpackjs.com/configuration/node/)[统计信息\(stats\)](https://www.webpackjs.com/configuration/stats/)[其它选项\(other options\)](https://www.webpackjs.com/configuration/other-options/)
-
 ## 配置
 
 > 注意整个配置中我们使用 Node 内置的 [path 模块](https://nodejs.org/api/path.html)，并在它前面加上 [\_\_dirname](https://nodejs.org/docs/latest/api/globals.html#globals_dirname)这个全局变量。可以防止不同操作系统之间的文件路径问题，并且可以使相对路径按照预期工作。
@@ -77,13 +65,6 @@ module.exports = {
     publicPath: "https://cdn.example.com/",
     // 输出解析文件的目录，url 相对于 HTML 页面
 
-    library: "MyLibrary", // string,
-    // 导出库(exported library)的名称
-
-    libraryTarget: "umd", // 通用模块定义    // 导出库(exported library)的类型
-
-    /* 高级输出配置（点击显示） */  },
-
   module: {
     // 关于模块配置
 
@@ -105,13 +86,6 @@ module.exports = {
         // - 只在 test 和 文件名匹配 中使用正则表达式
         // - 在 include 和 exclude 中使用绝对路径数组
         // - 尽量避免 exclude，更倾向于使用 include
-
-        issuer: { test, include, exclude },
-        // issuer 条件（导入源）
-
-        enforce: "pre",
-        enforce: "post",
-        // 标识应用这些规则，即使规则覆盖（高级选项）
 
         loader: "babel-loader",
         // 应该应用的 loader，它相对上下文解析
@@ -138,26 +112,8 @@ module.exports = {
             }
           }
         ]
-      },
-
-      { oneOf: [ /* rules */ ] },
-      // 只使用这些嵌套规则之一
-
-      { rules: [ /* rules */ ] },
-      // 使用所有这些嵌套规则（合并可用条件）
-
-      { resource: { and: [ /* 条件 */ ] } },
-      // 仅当所有条件都匹配时才匹配
-
-      { resource: { or: [ /* 条件 */ ] } },
-      { resource: [ /* 条件 */ ] },
-      // 任意条件匹配时匹配（默认为数组）
-
-      { resource: { not: /* 条件 */ } }
-      // 条件不匹配时匹配
+      }
     ],
-
-    /* 高级模块配置（点击展示） */  },
 
   resolve: {
     // 解析模块请求的选项
@@ -185,44 +141,16 @@ module.exports = {
       // 起别名 "module" -> "./app/third/module.js" 和 "module/file" 会导致错误
       // 模块别名相对于当前上下文导入
     },
-    /* 可供选择的别名语法（点击展示） */
-    /* 高级解析选项（点击展示） */  },
-
-  performance: {
-    hints: "warning", // 枚举    maxAssetSize: 200000, // 整数类型（以字节为单位）
-    maxEntrypointSize: 400000, // 整数类型（以字节为单位）
-    assetFilter: function(assetFilename) {
-      // 提供资源文件名的断言函数
-      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
-    }
-  },
 
   devtool: "source-map", // enum  // 通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
   // 牺牲了构建速度的 `source-map' 是最详细的。
-
-  context: __dirname, // string（绝对路径！）
-  // webpack 的主目录
-  // entry 和 module.rules.loader 选项
-  // 相对于此目录解析
-
-  target: "web", // 枚举  // 包(bundle)应该运行的环境
-  // 更改 块加载行为(chunk loading behavior) 和 可用模块(available module)
-
-  externals: ["react", /^@angular\//],  // 不要遵循/打包这些模块，而是在运行时从环境中请求他们
-
-  stats: "errors-only",  // 精确控制要显示的 bundle 信息
 
   devServer: {
     proxy: { // proxy URLs to backend development server
       '/api': 'http://localhost:3000'
     },
-    contentBase: path.join(__dirname, 'public'), // boolean | string | array, static file location
     compress: true, // enable gzip compression
-    historyApiFallback: true, // true for index.html upon 404, object for multiple paths
-    hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
-    https: false, // true for self-signed, object for cert authority
-    noInfo: true, // only errors & warns on hot reload
-    // ...
+    hot: true // hot module replacement. Depends on HotModuleReplacementPlugin
   },
 
   plugins: [
